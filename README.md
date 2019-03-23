@@ -14,8 +14,6 @@ npm install --save react-use-flexsearch
 
 ## API
 
-### `useFlexSearch` hook
-
 ```js
 useFlexSearch(query: String, index: Index! | String!, store: Object!, options: Object) => Object[]
 ```
@@ -24,16 +22,16 @@ The `useFlexSearch` [hook][hooks] takes your search query, index, and store and
 returns results as an array. Searches are memoized to ensure efficient
 searching.
 
-#### Parameters
+### Parameters
 
-| Name          | Type              | Description                                                                                                           |
-| ------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------- |
-| **`query`**   | `String`          | The search query. As this value updates, the return value will be updated.                                            |
-| **`index`**   | `Index \| String` | The FlexSearch index. This can be an instance of a FlexSearch index or one that has been exported via `Index.export`. |
-| **`store`**   | `Object`          | Object mapping a result `id` to an object of data.                                                                    |
-| **`options`** | `Object`          | Search options passed to `Index.search`.                                                                              |
+| Name          | Type              | Description                                                                                                                         |
+| ------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **`query`**   | `String`          | **Required**. The search query. As this value updates, the return value will be updated.                                            |
+| **`index`**   | `Index \| String` | **Required**. The FlexSearch index. This can be an instance of a FlexSearch index or one that has been exported via `Index.export`. |
+| **`store`**   | `Object`          | **Required**. Object mapping a result `id` to an object of data.                                                                    |
+| **`options`** | `Object`          | Search options passed to `Index.search`.                                                                                            |
 
-#### Example
+### Example
 
 The following example renders a text input and queries the FlexSearch index on
 form submission.
