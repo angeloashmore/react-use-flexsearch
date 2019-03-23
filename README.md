@@ -26,7 +26,7 @@ searching.
 
 | Name          | Type              | Description                                                                                                                         |
 | ------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| **`query`**   | `String`          | **Required**. The search query. As this value updates, the return value will be updated.                                            |
+| **`query`**   | `String`          | The search query. As this value updates, the return value will be updated.                                                          |
 | **`index`**   | `Index \| String` | **Required**. The FlexSearch index. This can be an instance of a FlexSearch index or one that has been exported via `Index.export`. |
 | **`store`**   | `Object`          | **Required**. Object mapping a result `id` to an object of data.                                                                    |
 | **`options`** | `Object`          | Search options passed to `Index.search`.                                                                                            |
