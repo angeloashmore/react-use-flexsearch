@@ -17,16 +17,16 @@ export const useFlexSearch = (query, providedIndex, store, searchOptions) => {
   }, [providedIndex, store])
 
   useEffect(() => {
-    if (typeof providedIndex === 'string') {
-      const importedIndex = FlexSearch.create()
-      importedIndex.import(providedIndex)
-
-      setIndex(importedIndex)
+    if (providedIndex instanceof FlexSearch) {
+      setIndex(providedIndex)
 
       return
     }
 
-    setIndex(providedIndex)
+    const importedIndex = FlexSearch.create()
+    importedIndex.import(providedIndex)
+
+    setIndex(importedIndex)
   }, [providedIndex])
 
   return useMemo(() => {
