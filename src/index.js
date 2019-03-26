@@ -35,5 +35,5 @@ export const useFlexSearch = (query, providedIndex, store, searchOptions) => {
     const rawResults = index.search(query, searchOptions)
 
     return rawResults.map(id => store[id])
-  }, [query, index])
+  }, [query, index, store])
 }
