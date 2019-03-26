@@ -4,19 +4,13 @@ import FlexSearch from 'flexsearch'
 const InvalidIndexError = new Error(
   'FlexSearch index is required. Check that your index exists and is valid.',
 )
-const InvalidStoreError = new Error(
-  'FlexSearch store is required. Check that your store exists and is valid.',
-)
 
-export const useFlexSearch = (query, providedIndex, store, searchOptions) => {
+export const useFlexSearch = (query, providedIndex, options) => {
   const [index, setIndex] = useState(null)
 
   useEffect(() => {
     if (!providedIndex) throw InvalidIndexError
-    if (!store) throw InvalidStoreError
-  }, [providedIndex, store])
 
-  useEffect(() => {
     if (providedIndex instanceof FlexSearch) {
       setIndex(providedIndex)
 
@@ -30,10 +24,8 @@ export const useFlexSearch = (query, providedIndex, store, searchOptions) => {
   }, [providedIndex])
 
   return useMemo(() => {
-    if (!query || !index || !store) return []
+    if (!query || !index) return []
 
-    const rawResults = index.search(query, searchOptions)
-
-    return rawResults.map(id => store[id])
-  }, [query, index, store])
+    return index.search(query, options)
+  }, [query, index])
 }
