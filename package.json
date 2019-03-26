@@ -1,6 +1,6 @@
 {
   "name": "react-use-flexsearch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React hook to search a FlexSearch index",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
