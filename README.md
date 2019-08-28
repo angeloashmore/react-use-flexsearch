@@ -37,10 +37,10 @@ The following example renders a text input and queries the FlexSearch index on
 form submission.
 
 Note: [Formik][formik] is used in the following example to handle form state,
-but is not required. As long as your query is passed as the first parameter,
-you can manage how to store it.
+but is not required. As long as your query is passed as the first parameter, you
+can manage how to store it.
 
-```js
+```jsx
 import React, { useState } from 'react'
 import { useFlexSearch } from 'react-use-flexsearch'
 import { Formik, Form, Field } from 'formik'
@@ -57,23 +57,25 @@ const SearchBar = () => {
   const results = useFlexSearch(query, index, store)
 
   return (
-    <Formik
-      initialValues={{ query: '' }}
-      onSubmit={(values, { setSubmitting }) => {
-        setQuery(values.query)
-        setSubmitting(false)
-      }}
-    >
-      <Form>
-        <Field name="query" />
-      </Form>
+    <div>
+      <Formik
+        initialValues={{ query: '' }}
+        onSubmit={(values, { setSubmitting }) => {
+          setQuery(values.query)
+          setSubmitting(false)
+        }}
+      >
+        <Form>
+          <Field name="query" />
+        </Form>
+      </Formik>
       <h1>Results</h1>
       <ul>
         {results.map(result => (
           <li key={result.id}>{result.title}</li>
         ))}
       </ul>
-    </Formik>
+    </div>
   )
 }
 ```
