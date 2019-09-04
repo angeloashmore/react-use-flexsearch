@@ -15,21 +15,20 @@ npm install --save react-use-flexsearch
 ## API
 
 ```js
-useFlexSearch(query: String, index: Index! | String!, store: Object!, options: Object) => Object[]
+useFlexSearch(query: String | Object, index: Index! | String!, options: Object) => Object[]
 ```
 
-The `useFlexSearch` [hook][hooks] takes your search query, index, and store and
-returns results as an array. Searches are memoized to ensure efficient
-searching.
+The `useFlexSearch` [hook][hooks] takes your search query, index, and search
+options and returns results as an array. Searches are memoized to ensure
+efficient searching.
 
 ### Parameters
 
-| Name          | Type              | Description                                                                                                                         |
-| ------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| **`query`**   | `String`          | The search query. As this value updates, the return value will be updated.                                                          |
-| **`index`**   | `Index \| String` | **Required**. The FlexSearch index. This can be an instance of a FlexSearch index or one that has been exported via `Index.export`. |
-| **`store`**   | `Object`          | **Required**. Object mapping a result `id` to an object of data.                                                                    |
-| **`options`** | `Object`          | Search options passed to `Index.search`.                                                                                            |
+| Name          | Type               | Description                                                                                                                         |
+| ------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **`query`**   | `String \| Object` | The search query. As this value updates, the return value will be updated.                                                          |
+| **`index`**   | `Index \| String`  | **Required**. The FlexSearch index. This can be an instance of a FlexSearch index or one that has been exported via `Index.export`. |
+| **`options`** | `Object`           | Search options passed to `Index.search`.                                                                                            |
 
 ### Example
 
@@ -46,15 +45,10 @@ import { useFlexSearch } from 'react-use-flexsearch'
 import { Formik, Form, Field } from 'formik'
 
 const index = /* a FlexSearch index */
-const store = {
-  1: { id: 1, title: 'Document 1' },
-  2: { id: 2, title: 'Document 2' },
-  3: { id: 3, title: 'Document 3' },
-}
 
 const SearchBar = () => {
   const [query, setQuery] = useState(null)
-  const results = useFlexSearch(query, index, store)
+  const results = useFlexSearch(query, index)
 
   return (
     <div>
@@ -72,7 +66,7 @@ const SearchBar = () => {
       <h1>Results</h1>
       <ul>
         {results.map(result => (
-          <li key={result.id}>{result.title}</li>
+          <li key={result}>Result ID: {result}</li>
         ))}
       </ul>
     </div>

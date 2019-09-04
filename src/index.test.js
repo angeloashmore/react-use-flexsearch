@@ -30,12 +30,6 @@ documents.forEach(doc => {
 
 const exportedIndex = index.export()
 
-const store = {
-  [documents[0].id]: documents[0],
-  [documents[1].id]: documents[1],
-  [documents[2].id]: documents[2],
-}
-
 beforeEach(() => {
   console.error = jest.fn()
 })
@@ -47,69 +41,55 @@ afterEach(() => {
 
 describe('useFlexSearch', () => {
   test('returns empty results if no query', () => {
-    let objResults
-    testHook(() => (objResults = useFlexSearch(null, index, store)))
+    let results
+    testHook(() => (results = useFlexSearch(null, index)))
 
-    let exportedResults
-    testHook(
-      () => (exportedResults = useFlexSearch(null, exportedIndex, store)),
-    )
-
-    expect(objResults).toEqual([])
-    expect(exportedResults).toEqual([])
+    expect(results).toEqual([])
   })
 
   test('returns empty results if query has no matches', () => {
-    let objResults
-    testHook(() => (objResults = useFlexSearch('nomatches', index, store)))
+    let results
+    testHook(() => (results = useFlexSearch('nomatches', index)))
 
-    let exportedResults
-    testHook(
-      () =>
-        (exportedResults = useFlexSearch('nomatches', exportedIndex, store)),
-    )
-
-    expect(objResults).toEqual([])
-    expect(exportedResults).toEqual([])
+    expect(results).toEqual([])
   })
 
   test('returns results if query has matches', () => {
-    let objResults
-    testHook(
-      () => (objResults = useFlexSearch(documents[0].name, index, store)),
-    )
+    let results
+    testHook(() => (results = useFlexSearch(documents[0].name, index)))
+
+    expect(results).toEqual([0])
+  })
+
+  test('returns same results using instance and exported index', () => {
+    let instanceResults
+    testHook(() => (instanceResults = useFlexSearch(documents[0].name, index)))
 
     let exportedResults
     testHook(
-      () =>
-        (exportedResults = useFlexSearch(
-          documents[0].name,
-          exportedIndex,
-          store,
-        )),
+      () => (exportedResults = useFlexSearch(documents[0].name, exportedIndex)),
     )
 
-    expect(objResults).toEqual([documents[0]])
-    expect(exportedResults).toEqual([documents[0]])
+    expect(instanceResults).toEqual([0])
+    expect(instanceResults).toEqual(exportedResults)
+  })
+
+  test('returns results if query has matches using search options', () => {
+    let results
+    testHook(() => (results = useFlexSearch('JavaScript', index)))
+
+    let limitedResults
+    testHook(
+      () => (limitedResults = useFlexSearch('JavaScript', index, { limit: 1 })),
+    )
+
+    expect(results).toEqual([1, 2])
+    expect(limitedResults).toEqual([1])
   })
 
   test('throws if index is missing', () => {
     expect(() => {
-      testHook(() => useFlexSearch(documents[0].name, null, store))
+      testHook(() => useFlexSearch(documents[0].name))
     }).toThrow('index is required')
-
-    expect(() => {
-      testHook(() => useFlexSearch(documents[0].name, undefined, store))
-    }).toThrow('index is required')
-  })
-
-  test('throws if store is missing', () => {
-    expect(() => {
-      testHook(() => useFlexSearch(documents[0].name, index, null))
-    }).toThrow('store is required')
-
-    expect(() => {
-      testHook(() => useFlexSearch(documents[0].name, index, undefined))
-    }).toThrow('store is required')
   })
 })
