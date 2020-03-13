@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.2.0-next.0](https://github.com/angeloashmore/react-use-flexsearch/compare/v0.1.1...v0.2.0-next.0) (2020-03-13)
+
+
+### Features
+
+* allow nullish index and store and warn instead of throw ([6473b63](https://github.com/angeloashmore/react-use-flexsearch/commit/6473b63))
+
+
+
 ## [0.1.1](https://github.com/angeloashmore/react-use-flexsearch/compare/v0.1.0...v0.1.1) (2019-03-26)
 
 
