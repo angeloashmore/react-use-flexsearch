@@ -1,25 +1,32 @@
 import { useState, useEffect, useMemo } from 'react'
 import FlexSearch from 'flexsearch'
 
-const InvalidIndexError = new Error(
-  'FlexSearch index is required. Check that your index exists and is valid.',
-)
-const InvalidStoreError = new Error(
-  'FlexSearch store is required. Check that your store exists and is valid.',
-)
-
 export const useFlexSearch = (query, providedIndex, store, searchOptions) => {
   const [index, setIndex] = useState(null)
 
   useEffect(() => {
-    if (!providedIndex) throw InvalidIndexError
-    if (!store) throw InvalidStoreError
+    if (!providedIndex && !store)
+      console.warn(
+        'A FlexSearch index and store was not provided. Your search results will be empty.',
+      )
+    else if (!providedIndex)
+      console.warn(
+        'A FlexSearch index was not provided. Your search results will be empty.',
+      )
+    else if (!store)
+      console.warn(
+        'A FlexSearch store was not provided. Your search results will be empty.',
+      )
   }, [providedIndex, store])
 
   useEffect(() => {
+    if (!providedIndex) {
+      setIndex(null)
+      return
+    }
+
     if (providedIndex instanceof FlexSearch) {
       setIndex(providedIndex)
-
       return
     }
 

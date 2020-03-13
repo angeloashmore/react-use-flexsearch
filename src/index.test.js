@@ -38,11 +38,13 @@ const store = {
 
 beforeEach(() => {
   console.error = jest.fn()
+  console.warn = jest.fn()
 })
 
 afterEach(cleanup)
 afterEach(() => {
   console.error.mockClear()
+  console.warn.mockClear()
 })
 
 describe('useFlexSearch', () => {
@@ -93,23 +95,39 @@ describe('useFlexSearch', () => {
     expect(exportedResults).toEqual([documents[0]])
   })
 
-  test('throws if index is missing', () => {
-    expect(() => {
-      testHook(() => useFlexSearch(documents[0].name, null, store))
-    }).toThrow('index is required')
+  test('warns if index and store are missing', () => {
+    const message =
+      'A FlexSearch index and store was not provided. Your search results will be empty.'
 
-    expect(() => {
-      testHook(() => useFlexSearch(documents[0].name, undefined, store))
-    }).toThrow('index is required')
+    testHook(() => useFlexSearch(documents[0].name, null, null))
+    expect(console.warn).toHaveBeenLastCalledWith(message)
+
+    console.warn.mockClear()
+    testHook(() => useFlexSearch(documents[0].name, undefined, undefined))
+    expect(console.warn).toHaveBeenLastCalledWith(message)
   })
 
-  test('throws if store is missing', () => {
-    expect(() => {
-      testHook(() => useFlexSearch(documents[0].name, index, null))
-    }).toThrow('store is required')
+  test('warns if index is missing', () => {
+    const message =
+      'A FlexSearch index was not provided. Your search results will be empty.'
 
-    expect(() => {
-      testHook(() => useFlexSearch(documents[0].name, index, undefined))
-    }).toThrow('store is required')
+    testHook(() => useFlexSearch(documents[0].name, null, store))
+    expect(console.warn).toHaveBeenLastCalledWith(message)
+
+    console.warn.mockClear()
+    testHook(() => useFlexSearch(documents[0].name, undefined, store))
+    expect(console.warn).toHaveBeenLastCalledWith(message)
+  })
+
+  test('warns if store is missing', () => {
+    const message =
+      'A FlexSearch store was not provided. Your search results will be empty.'
+
+    testHook(() => useFlexSearch(documents[0].name, index, null))
+    expect(console.warn).toHaveBeenLastCalledWith(message)
+
+    console.warn.mockClear()
+    testHook(() => useFlexSearch(documents[0].name, index, undefined))
+    expect(console.warn).toHaveBeenLastCalledWith(message)
   })
 })
