@@ -15,7 +15,7 @@ npm install --save react-use-flexsearch
 ## API
 
 ```js
-useFlexSearch(query: String, index: Index! | String!, store: Object!, options: Object) => Object[]
+useFlexSearch(query: String, index: Index | String, store: Object, options: Object) => Object[]
 ```
 
 The `useFlexSearch` [hook][hooks] takes your search query, index, and store and
@@ -24,12 +24,12 @@ searching.
 
 ### Parameters
 
-| Name          | Type              | Description                                                                                                                         |
-| ------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| **`query`**   | `String`          | The search query. As this value updates, the return value will be updated.                                                          |
-| **`index`**   | `Index \| String` | **Required**. The FlexSearch index. This can be an instance of a FlexSearch index or one that has been exported via `Index.export`. |
-| **`store`**   | `Object`          | **Required**. Object mapping a result `id` to an object of data.                                                                    |
-| **`options`** | `Object`          | Search options passed to `Index.search`.                                                                                            |
+| Name          | Type              | Description                                                                                                           |
+| ------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **`query`**   | `String`          | The search query. As this value updates, the return value will be updated.                                            |
+| **`index`**   | `Index \| String` | The FlexSearch index. This can be an instance of a FlexSearch index or one that has been exported via `Index.export`. |
+| **`store`**   | `Object`          | Object mapping a result `id` to an object of data.                                                                    |
+| **`options`** | `Object`          | Search options passed to `Index.search`.                                                                              |
 
 ### Example
 
