@@ -39,8 +39,15 @@ export const useFlexSearch = (query, providedIndex, store, searchOptions) => {
   return useMemo(() => {
     if (!query || !index || !store) return []
 
-    const rawResults = index.search(query, searchOptions)
-
-    return rawResults.map(id => store[id])
+    var rawResults = index.search(query, searchOptions)
+    
+    if (typeof rawRestuls === 'object' && rawResult.result) {
+      rawResults.result = rawResults.result.map(id => store[id])
+    }
+    else {
+      rawResults = rawResults.map(id => store[id])
+    }
+    
+    return rawResults
   }, [query, index, store])
 }
