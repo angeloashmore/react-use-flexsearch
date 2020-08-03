@@ -41,7 +41,7 @@ export const useFlexSearch = (query, providedIndex, store, searchOptions) => {
 
     var rawResults = index.search(query, searchOptions)
     
-    if (typeof rawRestuls === 'object') {
+    if (typeof rawRestuls === 'object' && rawResult.result) {
       rawResults.result = rawResults.result.map(id => store[id])
     }
     else {
